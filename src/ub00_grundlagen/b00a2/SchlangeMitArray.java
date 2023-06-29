@@ -12,7 +12,6 @@ public class SchlangeMitArray implements Schlange{
         currentSize = -1;
     }
 
-
     @Override
     public boolean isEmpty() {
         return currentSize == -1;
@@ -30,7 +29,7 @@ public class SchlangeMitArray implements Schlange{
 
     @Override
     public void insert(Integer i) throws IllegalStateException {
-        if (this.size() == this.capacity()) {
+        if (size() == capacity()) {
             throw new IllegalStateException();
         } else {
             data[++currentSize] = i;
@@ -39,7 +38,7 @@ public class SchlangeMitArray implements Schlange{
 
     @Override
     public int remove() throws NoSuchElementException {
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             int removedElement = data[0];
@@ -53,7 +52,7 @@ public class SchlangeMitArray implements Schlange{
 
     @Override
     public int front() throws NoSuchElementException {
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             return data[0];

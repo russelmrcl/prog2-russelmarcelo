@@ -41,7 +41,6 @@ public class SchlangeMitEVL<T> implements Schlange<T> {
 
     @Override
     public T front() throws NoSuchElementException {
-        //Oder getLast??
         return schlangeMitEvl.getFirst();
     }
 

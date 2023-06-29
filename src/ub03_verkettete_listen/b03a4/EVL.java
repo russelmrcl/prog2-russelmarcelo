@@ -19,7 +19,7 @@ public class EVL<T> {
 
     public T getFirst() {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             return first.data;
@@ -28,7 +28,7 @@ public class EVL<T> {
 
     public T getLast() {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             ListElement tmp = first;
@@ -45,7 +45,7 @@ public class EVL<T> {
             throw new IllegalStateException();
         } else {
             ListElement element = new ListElement(e);
-            if (this.isEmpty()) {
+            if (isEmpty()) {
                 first = element;
             } else {
                 ListElement tmp = first;
@@ -60,7 +60,7 @@ public class EVL<T> {
 
     public T removeLast() {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             T removedElement;
@@ -84,7 +84,7 @@ public class EVL<T> {
 
     public boolean contains(T e) {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             ListElement tmp = first;
@@ -99,15 +99,19 @@ public class EVL<T> {
         }
     }
 
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
     public int size() {
-        return this.size;
+        return size;
     }
 
     public void zip(EVL<T> other) {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             first = other.first;
-            this.size = other.size;
+            size = other.size;
             other.first = null;
             other.size = 0;
         } else {
@@ -121,7 +125,7 @@ public class EVL<T> {
                 } else {
                     ListElement tmp = current.next;
                     current.next = other.first;
-                    this.size++;
+                    size++;
                     other.size--;
                     other.first = other.first.next;
                     current.next.next = tmp;
@@ -133,21 +137,17 @@ public class EVL<T> {
 
     @Override
     public String toString() {
-        return this.toString(first);
+        return toString(first);
     }
 
     private String toString(ListElement current) {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             return "Empty!";
         } else if (null == current.next) {
             return current.data.toString();
         } else {
             return current.data + "-> " + toString(current.next);
         }
-    }
-
-    private boolean isEmpty() {
-        return this.size() == 0;
     }
 }

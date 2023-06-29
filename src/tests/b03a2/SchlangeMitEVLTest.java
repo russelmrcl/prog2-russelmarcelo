@@ -87,6 +87,8 @@ class SchlangeMitEVLTest {
     @Test
     void frontTest() {
         assertEquals(1, schlangeMitEVL.front());
+        schlangeMitEVL.remove();
+        assertEquals(2, schlangeMitEVL.front());
     }
 
     @Test

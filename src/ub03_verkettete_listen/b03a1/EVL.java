@@ -19,7 +19,7 @@ public class EVL<T> {
 
     public T getFirst() {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             return first.data;
@@ -29,7 +29,7 @@ public class EVL<T> {
 
     public T getLast() {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             ListElement tmp = first;
@@ -47,11 +47,11 @@ public class EVL<T> {
             throw new IllegalStateException();
         } else {
             ListElement element = new ListElement(e);
-            if (this.isEmpty()) {
+            if (isEmpty()) {
                 first = element;
             } else {
-                element.next = this.first;
-                this.first = element;
+                element.next = first;
+                first = element;
             }
         }
     }
@@ -62,7 +62,7 @@ public class EVL<T> {
             throw new IllegalStateException();
         } else {
             ListElement element = new ListElement(e);
-            if (this.isEmpty()) {
+            if (isEmpty()) {
                 first = element;
             } else {
                 ListElement tmp = first;
@@ -77,11 +77,11 @@ public class EVL<T> {
 
     public T removeLast() {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             T removedElement;
-            if (1 == this.size) {
+            if (1 == size) {
                 removedElement = first.data;
                 first = null;
             } else {
@@ -99,15 +99,15 @@ public class EVL<T> {
 
     public T removeFirst() {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             T removedElement;
-            if (1 == this.size) {
+            if (1 == size) {
                 removedElement = first.data;
                 first = null;
             } else {
-                removedElement = this.getFirst();
+                removedElement = getFirst();
                 first = first.next;
             }
             size--;
@@ -117,7 +117,7 @@ public class EVL<T> {
 
     public boolean contains(T e) {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             ListElement tmp = first;
@@ -132,18 +132,22 @@ public class EVL<T> {
         return false;
     }
 
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
     public int size() {
-        return this.size;
+        return size;
     }
 
     @Override
     public String toString() {
-        return this.toString(first);
+        return toString(first);
     }
 
     private String toString(ListElement current) {
 
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             return "Empty!";
         } else if (null == current.next) {
             return current.data.toString();
@@ -152,7 +156,4 @@ public class EVL<T> {
         }
     }
 
-    private boolean isEmpty() {
-        return this.size() == 0;
-    }
 }

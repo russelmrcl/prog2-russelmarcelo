@@ -10,6 +10,4 @@ public class DynArray<T> {
         data =  (T[]) new Object[size];
     }
 
-
-
 }

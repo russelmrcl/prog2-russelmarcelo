@@ -30,7 +30,7 @@ public class StapelMitArray implements Stapel {
 
     @Override
     public void insert(Integer i) throws IllegalStateException {
-        if (this.size() == this.capacity()) {
+        if (size() == capacity()) {
             throw new IllegalStateException();
         } else {
             data[++currentSize] = i;
@@ -39,7 +39,7 @@ public class StapelMitArray implements Stapel {
 
     @Override
     public int remove() throws NoSuchElementException {
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             return data[currentSize--];
@@ -48,7 +48,7 @@ public class StapelMitArray implements Stapel {
 
     @Override
     public int top() throws NoSuchElementException {
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             return data[currentSize];

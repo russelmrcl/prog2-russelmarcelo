@@ -12,8 +12,8 @@ public class Josephus {
         }
 
         while (circle.size() > 1) {
-            circle.next(k);
-            System.out.println(circle.remove());
+            circle.next(k-1);
+            circle.remove();
         }
 
         return circle.element();
