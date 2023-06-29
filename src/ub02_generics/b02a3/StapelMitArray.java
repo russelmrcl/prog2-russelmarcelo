@@ -33,26 +33,23 @@ public class StapelMitArray<T> implements Stapel<T> {
     public void insert(T i) throws IllegalStateException {
         if (size() == capacity()) {
             throw new IllegalStateException();
-        } else {
-            data[++currentSize] = i;
         }
+        data[++currentSize] = i;
     }
 
     @Override
     public T remove() throws NoSuchElementException {
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            return data[currentSize--];
         }
+        return data[currentSize--];
     }
 
     @Override
     public T top() throws NoSuchElementException {
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            return data[currentSize];
         }
+        return data[currentSize];
     }
 }

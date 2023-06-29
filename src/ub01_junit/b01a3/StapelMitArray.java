@@ -1,6 +1,5 @@
 package b01a3;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class StapelMitArray implements Stapel {
@@ -21,7 +20,7 @@ public class StapelMitArray implements Stapel {
 
     @Override
     public int size() {
-        return currentSize +1;
+        return currentSize + 1;
     }
 
     @Override
@@ -33,40 +32,29 @@ public class StapelMitArray implements Stapel {
     public void insert(Integer i) throws IllegalStateException {
         if (this.size() == this.capacity()) {
             throw new IllegalStateException();
-        } else {
-            data[++currentSize] = i;
         }
+        data[++currentSize] = i;
     }
 
     @Override
     public int remove() throws NoSuchElementException {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            return data[currentSize--];
         }
+        return data[currentSize--];
     }
 
     @Override
     public int top() throws NoSuchElementException {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            return data[currentSize];
         }
+        return data[currentSize];
     }
 
     public void applyToAll(Funktion funktion) {
-        for(int i = 0; i < this.size(); i++) {
+        for (int i = 0; i < this.size(); i++) {
             data[i] = funktion.auswerten(data[i]);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "StapelMitArray{" +
-                "data=" + Arrays.toString(data) +
-                ", currentSize=" + currentSize +
-                '}';
     }
 }

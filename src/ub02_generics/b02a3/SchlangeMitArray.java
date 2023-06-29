@@ -33,31 +33,28 @@ public class SchlangeMitArray<T> implements Schlange<T> {
     public void insert(T i) throws IllegalStateException {
         if (size() == capacity()) {
             throw new IllegalStateException();
-        } else {
-            data[++currentSize] = i;
         }
+        data[++currentSize] = i;
     }
 
     @Override
     public T remove() throws NoSuchElementException {
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            T removedElement = data[0];
-            for (int i = 0; i < size() - 1; i++) {
-                data[i] = data[i + 1];
-            }
-            currentSize--;
-            return removedElement;
         }
+        T removedElement = data[0];
+        for (int i = 0; i < size() - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        currentSize--;
+        return removedElement;
     }
 
     @Override
     public T front() throws NoSuchElementException {
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            return data[0];
         }
+        return data[0];
     }
 }

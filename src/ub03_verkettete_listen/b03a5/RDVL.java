@@ -30,42 +30,40 @@ public class RDVL<T> {
 
         if (null == e) {
             throw new IllegalStateException();
-        } else {
-            ListElement newElement = new ListElement(e);
-            if (isEmpty()) {
-                entry = newElement;
-                entry.prev = entry;
-                entry.next = entry;
-            } else {
-                ListElement tmp = entry.prev;
-                entry.prev = newElement;
-                tmp.next = newElement;
-                newElement.next = entry;
-                newElement.prev = tmp;
-            }
-            size++;
         }
+        ListElement newElement = new ListElement(e);
+        if (isEmpty()) {
+            entry = newElement;
+            entry.prev = entry;
+            entry.next = entry;
+        } else {
+            ListElement tmp = entry.prev;
+            entry.prev = newElement;
+            tmp.next = newElement;
+            newElement.next = entry;
+            newElement.prev = tmp;
+        }
+        size++;
     }
 
     public T remove() {
 
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            T removedElement;
-            if (size() == 1) {
-                removedElement = entry.data;
-                entry = null;
-            } else {
-                ListElement tmp = entry.prev;
-                removedElement = entry.data;
-                entry = entry.next;
-                tmp.next = entry;
-                entry.prev = tmp;
-            }
-            size--;
-            return removedElement;
         }
+        T removedElement;
+        if (size() == 1) {
+            removedElement = entry.data;
+            entry = null;
+        } else {
+            ListElement tmp = entry.prev;
+            removedElement = entry.data;
+            entry = entry.next;
+            tmp.next = entry;
+            entry.prev = tmp;
+        }
+        size--;
+        return removedElement;
     }
 
     public T element() {
@@ -73,7 +71,6 @@ public class RDVL<T> {
     }
 
     public void next(int s) {
-
         while (s > 0) {
             entry = entry.next;
             s--;

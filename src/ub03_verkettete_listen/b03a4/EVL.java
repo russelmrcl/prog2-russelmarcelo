@@ -21,90 +21,105 @@ public class EVL<T> {
 
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            return first.data;
         }
+        return first.data;
+
     }
 
     public T getLast() {
 
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            ListElement tmp = first;
-            while (null != tmp.next) {
-                tmp = tmp.next;
-            }
-            return tmp.data;
         }
+        ListElement tmp = first;
+        while (null != tmp.next) {
+            tmp = tmp.next;
+        }
+        return tmp.data;
+    }
+
+    public void addFirst(T e) {
+
+        if (null == e) {
+            throw new IllegalStateException();
+        }
+        ListElement element = new ListElement(e);
+        if (!isEmpty()) {
+            element.next = first;
+        }
+        first = element;
     }
 
     public void addLast(T e) {
 
         if (null == e) {
             throw new IllegalStateException();
-        } else {
-            ListElement element = new ListElement(e);
-            if (isEmpty()) {
-                first = element;
-            } else {
-                ListElement tmp = first;
-                while (null != tmp.next) {
-                    tmp = tmp.next;
-                }
-                tmp.next = element;
-            }
-            size++;
         }
+        ListElement element = new ListElement(e);
+        if (isEmpty()) {
+            first = element;
+        } else {
+            ListElement tmp = first;
+            while (null != tmp.next) {
+                tmp = tmp.next;
+            }
+            tmp.next = element;
+        }
+        size++;
+    }
+
+    public T removeFirst() {
+
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        T removedElement;
+        if (1 == size) {
+            removedElement = first.data;
+            first = null;
+        } else {
+            removedElement = getFirst();
+            first = first.next;
+        }
+        size--;
+        return removedElement;
     }
 
     public T removeLast() {
 
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            T removedElement;
-            if (1 == size()) {
-                removedElement = getFirst();
-                first = null;
-                size = 0;
-            } else {
-                ListElement tmp = first;
-                //search for the second last element & set next to null!
-                while (null != tmp.next.next) {
-                    tmp = tmp.next;
-                }
-                removedElement = tmp.next.data;
-                tmp.next = null;
-                size--;
-            }
-            return removedElement;
         }
+        T removedElement;
+        if (1 == size) {
+            removedElement = first.data;
+            first = null;
+        } else {
+            ListElement tmp = first;
+            while (null != tmp.next.next) {
+                tmp = tmp.next;
+            }
+            removedElement = tmp.next.data;
+            tmp.next = null;
+        }
+        size--;
+        return removedElement;
     }
 
     public boolean contains(T e) {
 
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            ListElement tmp = first;
-            while (null != tmp) {
-                if (tmp.data.equals(e)) {
-                    return true;
-                } else {
-                    tmp = tmp.next;
-                }
-            }
-            return false;
         }
-    }
-
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-
-    public int size() {
-        return size;
+        ListElement tmp = first;
+        while (null != tmp) {
+            if (tmp.data.equals(e)) {
+                return true;
+            } else {
+                tmp = tmp.next;
+            }
+        }
+        return false;
     }
 
     public void zip(EVL<T> other) {
@@ -114,25 +129,32 @@ public class EVL<T> {
             size = other.size;
             other.first = null;
             other.size = 0;
-        } else {
-            ListElement current = first;
-            while (!other.isEmpty()) {
-                if (current.next == null) {
-                    current.next = other.first;
-                    size += other.size;
-                    other.first = null;
-                    other.size = 0;
-                } else {
-                    ListElement tmp = current.next;
-                    current.next = other.first;
-                    size++;
-                    other.size--;
-                    other.first = other.first.next;
-                    current.next.next = tmp;
-                    current = tmp;
-                }
+        }
+        ListElement current = first;
+        while (!other.isEmpty()) {
+            if (current.next == null) {
+                current.next = other.first;
+                size += other.size;
+                other.first = null;
+                other.size = 0;
+            } else {
+                ListElement tmp = current.next;
+                current.next = other.first;
+                size++;
+                other.size--;
+                other.first = other.first.next;
+                current.next.next = tmp;
+                current = tmp;
             }
         }
+    }
+
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    public int size() {
+        return size;
     }
 
     @Override

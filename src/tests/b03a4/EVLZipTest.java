@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EVLTest {
+class EVLZipTest {
 
     EVL<Integer> evl1;
     EVL<Integer> evl2;

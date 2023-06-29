@@ -1,6 +1,6 @@
 package b00a3;
 
-public class Student extends Person{
+public class Student extends Person {
 
     private int matrikelnummer;
 
@@ -16,13 +16,11 @@ public class Student extends Person{
     @Override
     public boolean equals(Object other) {
 
-        if (! (other instanceof Student)) {
+        if (!(other instanceof Student)) {
             return false;
-        } else {
-            Student otherStudent = (Student) other;
-            return super.equals(otherStudent) && this.matrikelnummer == otherStudent.matrikelnummer;
         }
-
+        Student otherStudent = (Student) other;
+        return super.equals(otherStudent) && this.matrikelnummer == otherStudent.matrikelnummer;
     }
 
     @Override

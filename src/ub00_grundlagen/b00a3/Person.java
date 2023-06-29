@@ -23,15 +23,13 @@ public abstract class Person {
 
         if (!(other instanceof Person)) {
             return false;
-        } else {
-
-            Person otherPerson = (Person) other;
-            return this.getName().equals(otherPerson.getName()) && this.getVorname().equals(otherPerson.getVorname());
         }
+        Person otherPerson = (Person) other;
+        return this.getName().equals(otherPerson.getName()) && this.getVorname().equals(otherPerson.getVorname());
     }
 
-        @Override
-        public String toString () {
-            return this.getName() + ", " + this.getVorname();
-        }
+    @Override
+    public String toString() {
+        return this.getName() + ", " + this.getVorname();
     }
+}

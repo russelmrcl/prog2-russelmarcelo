@@ -1,6 +1,6 @@
 package b00a3;
 
-public class Boxer extends Person{
+public class Boxer extends Person {
 
     private int kg;
 
@@ -16,13 +16,11 @@ public class Boxer extends Person{
     @Override
     public boolean equals(Object other) {
 
-        if(! (other instanceof Boxer)) {
+        if (!(other instanceof Boxer)) {
             return false;
-        } else {
-
-            Boxer otherBoxer = (Boxer) other;
-            return super.equals(otherBoxer) && this.getKg() == otherBoxer.getKg();
         }
+        Boxer otherBoxer = (Boxer) other;
+        return super.equals(otherBoxer) && this.getKg() == otherBoxer.getKg();
     }
 
     @Override

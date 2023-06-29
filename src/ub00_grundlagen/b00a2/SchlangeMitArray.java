@@ -2,7 +2,7 @@ package b00a2;
 
 import java.util.NoSuchElementException;
 
-public class SchlangeMitArray implements Schlange{
+public class SchlangeMitArray implements Schlange {
 
     private Integer[] data;
     private int currentSize;
@@ -31,31 +31,28 @@ public class SchlangeMitArray implements Schlange{
     public void insert(Integer i) throws IllegalStateException {
         if (size() == capacity()) {
             throw new IllegalStateException();
-        } else {
-            data[++currentSize] = i;
         }
+        data[++currentSize] = i;
     }
 
     @Override
     public int remove() throws NoSuchElementException {
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            int removedElement = data[0];
-            for (int i = 0; i < size() -1; i++) {
-                data[i] = data[i+1];
-            }
-            currentSize--;
-            return removedElement;
         }
+        int removedElement = data[0];
+        for (int i = 0; i < size() - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        currentSize--;
+        return removedElement;
     }
 
     @Override
     public int front() throws NoSuchElementException {
         if (isEmpty()) {
             throw new NoSuchElementException();
-        } else {
-            return data[0];
         }
+        return data[0];
     }
 }
