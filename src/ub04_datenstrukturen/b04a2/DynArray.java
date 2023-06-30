@@ -22,7 +22,7 @@ public class DynArray<T> {
     }
 
     public T get(int pos) {
-        if (pos > capacity - 1 || pos < 0 || pos > size) {
+        if (pos > capacity - 1 || pos < 0 || pos >= size) {
             throw new IllegalStateException();
         }
         return data[pos];
@@ -31,7 +31,7 @@ public class DynArray<T> {
     public T set(int pos, T e) {
 
         T replacedELement;
-        if (pos > capacity - 1 || pos < 0 || pos > size) {
+        if (pos > capacity - 1 || pos < 0 || pos >= size) {
             throw new IllegalStateException();
         }
         replacedELement = data[pos];
@@ -52,6 +52,7 @@ public class DynArray<T> {
     }
 
     public void addLast(T e) {
+
         if (size() == capacity()) {
             increase();
         }
@@ -63,8 +64,8 @@ public class DynArray<T> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        data[0] = null;
         T removedElement = data[0];
+        data[0] = null;
         for (int i = 0; i < size - 1; i++) {
             data[i] = data[i + 1];
         }
@@ -77,10 +78,15 @@ public class DynArray<T> {
     }
 
     public T removeLast() {
+
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        T removedElement = data[size - 1];
+        T removedElement = data[0];
+        data[0] = null;
+        for (int i = 0; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
         data[size - 1] = null;
         size--;
         if (size * 4 <= capacity) {
@@ -112,4 +118,6 @@ public class DynArray<T> {
     private boolean isEmpty() {
         return this.size == 0;
     }
+
 }
+
