@@ -85,10 +85,14 @@ public class Ringpuffer<T> {
     }
 
     public void reset() {
-
+        for (int i = 0; i < capacity; i++) {
+            data[i] = null;
+        }
+        size = 0;
+        pointer = 0;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return this.size() == 0;
     }
 
