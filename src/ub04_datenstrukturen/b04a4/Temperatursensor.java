@@ -41,7 +41,7 @@ public class Temperatursensor {
         try {
             senor.addLast(wert);
         } catch (IllegalStateException illegalStateException) {
-            senor.removefirst();
+            senor.removeFirst();
             senor.addLast(wert);
         }
     }

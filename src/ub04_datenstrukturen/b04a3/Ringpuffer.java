@@ -1,6 +1,5 @@
 package b04a3;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Ringpuffer<T> {
@@ -21,7 +20,7 @@ public class Ringpuffer<T> {
     }
 
     public T get(int pos) {
-        if (pos > capacity - 1 || pos < 0 || pos >= size) {
+        if (pos > capacity - 1 || pos < 0 || pos > size) {
             throw new IllegalStateException();
         }
         return data[pos];
@@ -30,7 +29,7 @@ public class Ringpuffer<T> {
     public T set(int pos, T e) {
 
         T replacedELement;
-        if (pos > capacity - 1 || pos < 0 || pos >= size) {
+        if (pos > capacity - 1 || pos < 0 || pos > size) {
             throw new IllegalStateException();
         }
         replacedELement = data[pos];
@@ -60,7 +59,7 @@ public class Ringpuffer<T> {
         size++;
     }
 
-    public T removefirst() {
+    public T removeFirst() {
 
         if (isEmpty()) {
             throw new NoSuchElementException();
@@ -92,18 +91,12 @@ public class Ringpuffer<T> {
         pointer = 0;
     }
 
+    public T pointer() {
+        return data[pointer];
+    }
+
     public boolean isEmpty() {
         return this.size() == 0;
     }
 
-
-    @Override
-    public String toString() {
-        return "Ringpuffer{" +
-                "data=" + Arrays.toString(data) +
-                ", pointer=" + pointer +
-                ", size=" + size +
-                ", capacity=" + capacity +
-                '}';
-    }
 }

@@ -1,5 +1,6 @@
 package b04a2;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class DynArray<T> {
@@ -82,12 +83,8 @@ public class DynArray<T> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        T removedElement = data[0];
-        data[0] = null;
-        for (int i = 0; i < size - 1; i++) {
-            data[i] = data[i + 1];
-        }
-        data[size - 1] = null;
+        T removedElement = data[size-1];
+        data[size-1] = null;
         size--;
         if (size * 4 <= capacity) {
             decrease();
@@ -118,6 +115,5 @@ public class DynArray<T> {
     private boolean isEmpty() {
         return this.size == 0;
     }
-
 }
 
