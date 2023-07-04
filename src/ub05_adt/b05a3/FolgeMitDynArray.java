@@ -2,7 +2,6 @@ package b05a3;
 
 import b05a2.Folge;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class FolgeMitDynArray<T> implements Folge<T> {
@@ -114,14 +113,5 @@ public class FolgeMitDynArray<T> implements Folge<T> {
             newData[i] = data[i];
         }
         data = newData;
-    }
-
-    @Override
-    public String toString() {
-        return "FolgeMitDynArray{" +
-                "data=" + Arrays.toString(data) +
-                ", size=" + size +
-                ", capacity=" + capacity +
-                '}';
     }
 }

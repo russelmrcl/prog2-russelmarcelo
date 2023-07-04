@@ -1,6 +1,5 @@
 package b04a3;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Ringpuffer<T> {
@@ -107,16 +106,5 @@ public class Ringpuffer<T> {
 
     public boolean isEmpty() {
         return this.size() == 0;
-    }
-
-    @Override
-    public String
-    toString() {
-        return "Ringpuffer{" +
-                "data=" + Arrays.toString(data) +
-                ", pointer=" + pointer +
-                ", size=" + size +
-                ", capacity=" + capacity +
-                '}';
     }
 }
