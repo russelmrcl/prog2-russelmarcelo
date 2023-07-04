@@ -40,6 +40,6 @@ public class Paar<E, Z> {
     }
 
     public String toString() {
-        return "("+ erstes + "," + zweites + ")";
+        return "("+ getErstes() + "," + getZweites() + ")";
     }
 }

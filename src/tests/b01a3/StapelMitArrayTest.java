@@ -35,7 +35,7 @@ class StapelMitArrayTest {
         for (int i = 0; i < array.length; i++) {
             stapel.insert(array[i]);
         }
-        stapel.applyToAll((v) -> v * v);
+        stapel.applyToAll((q) -> q * q);
 
         for (int i = stapel.size() - 1; 0 <= i; i--) {
             assertEquals(array[i] * array[i], stapel.remove());

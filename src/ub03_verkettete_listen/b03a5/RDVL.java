@@ -19,7 +19,7 @@ public class RDVL<T> {
     }
 
     public boolean isEmpty() {
-        return this.size() == 0;
+        return size() == 0;
     }
 
     public int size() {

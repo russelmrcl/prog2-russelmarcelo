@@ -1,6 +1,5 @@
 package b04a2;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class DynArray<T> {
@@ -23,7 +22,8 @@ public class DynArray<T> {
     }
 
     public T get(int pos) {
-        if (pos > capacity - 1 || pos < 0 || pos >= size) {
+
+        if (pos < 0 || pos > capacity() - 1 || pos > size()) {
             throw new IllegalStateException();
         }
         return data[pos];
@@ -31,21 +31,21 @@ public class DynArray<T> {
 
     public T set(int pos, T e) {
 
-        T replacedELement;
-        if (pos > capacity - 1 || pos < 0 || pos >= size) {
+        if (pos < 0 || pos > capacity() - 1 || pos > size()) {
             throw new IllegalStateException();
         }
-        replacedELement = data[pos];
+        T replacedElement = data[pos];
         data[pos] = e;
-        return replacedELement;
+        return replacedElement;
     }
 
     public void addFirst(T e) {
 
         if (size() == capacity()) {
-            increase();
+            grow();
         }
-        for (int i = size - 1; i >= 0; i--) {
+
+        for (int i = 0; i < size; i++) {
             data[i + 1] = data[i];
         }
         data[0] = e;
@@ -55,7 +55,7 @@ public class DynArray<T> {
     public void addLast(T e) {
 
         if (size() == capacity()) {
-            increase();
+            grow();
         }
         data[size++] = e;
     }
@@ -65,15 +65,16 @@ public class DynArray<T> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
+
         T removedElement = data[0];
         data[0] = null;
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size; i++) {
             data[i] = data[i + 1];
         }
         data[size - 1] = null;
         size--;
-        if (size * 4 <= capacity) {
-            decrease();
+        if (size() * 4 == capacity()) {
+            shrink();
         }
         return removedElement;
     }
@@ -83,16 +84,18 @@ public class DynArray<T> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        T removedElement = data[size-1];
-        data[size-1] = null;
+
+        T removedElement = data[size() - 1];
+        data[size() - 1] = null;
         size--;
-        if (size * 4 <= capacity) {
-            decrease();
+        if (size() * 4 == capacity()) {
+            shrink();
         }
         return removedElement;
     }
 
-    private void increase() {
+    private void grow() {
+
         capacity *= 2;
         @SuppressWarnings("unchecked")
         T[] newData = (T[]) new Object[capacity];
@@ -102,7 +105,8 @@ public class DynArray<T> {
         data = newData;
     }
 
-    private void decrease() {
+    private void shrink() {
+
         capacity /= 2;
         @SuppressWarnings("unchecked")
         T[] newData = (T[]) new Object[capacity];
@@ -112,8 +116,9 @@ public class DynArray<T> {
         data = newData;
     }
 
-    private boolean isEmpty() {
-        return this.size == 0;
+    public boolean isEmpty() {
+        return size() == 0;
     }
 }
+
 
