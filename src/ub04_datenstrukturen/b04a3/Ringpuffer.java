@@ -44,14 +44,13 @@ public class Ringpuffer<T> {
         }
         @SuppressWarnings("unchecked")
         T[] tmp = (T[]) new Object[capacity];
-        for (int i = pointer; i <= capacity; i++) {
+        for (int i = pointer; i <= capacity + pointer; i++) {
             tmp[(i + 1) % capacity] = data[i % capacity];
         }
         data = tmp;
         data[pointer] = e;
         size++;
     }
-
 
     public void addLast(T e) {
 
@@ -62,6 +61,7 @@ public class Ringpuffer<T> {
         data[index] = e;
         size++;
     }
+
 
     public T removeFirst() {
 
@@ -75,6 +75,7 @@ public class Ringpuffer<T> {
         return removedElement;
 
     }
+
 
     public T removeLast() {
 
