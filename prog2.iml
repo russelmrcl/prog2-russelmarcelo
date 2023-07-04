@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/ub03_verkettete_listen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ub04_datenstrukturen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ub05_adt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ub06_baeume" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

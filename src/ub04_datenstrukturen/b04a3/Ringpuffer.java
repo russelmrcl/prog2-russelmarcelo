@@ -104,6 +104,10 @@ public class Ringpuffer<T> {
         return pointer;
     }
 
+    public int capacity() {
+        return this.capacity;
+    }
+
     public boolean isEmpty() {
         return this.size() == 0;
     }
