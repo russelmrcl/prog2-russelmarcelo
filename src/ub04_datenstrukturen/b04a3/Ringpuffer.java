@@ -111,14 +111,4 @@ public class Ringpuffer<T> {
     public boolean isEmpty() {
         return this.size() == 0;
     }
-
-    @Override
-    public String toString() {
-        return "Ringpuffer{" +
-                "data=" + Arrays.toString(data) +
-                ", pointer=" + pointer +
-                ", size=" + size +
-                ", capacity=" + capacity +
-                '}';
-    }
 }
