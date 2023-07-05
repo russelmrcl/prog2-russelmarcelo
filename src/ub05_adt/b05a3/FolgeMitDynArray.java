@@ -79,20 +79,42 @@ public class FolgeMitDynArray<T> implements Folge<T> {
             throw new IllegalStateException();
         }
 
-        T removedElement = data[pos];
-        data[pos] = null;
-        return removedElement;
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
 
+        T removedElement = data[pos];
+
+        for (int i = pos; i < size() - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        data[size()-1] = null;
+        size--;
+
+        if (size() * 4 == capacity()) {
+            shrink();
+        }
+
+        return removedElement;
     }
+
 
     @Override
     public void insert(int pos, T e) {
-        if (pos >= 0 && pos <= size) {
-            data[pos] = e;
-        } else {
+        if (0 > pos || pos > capacity()) {
             throw new IllegalStateException();
         }
+
+        if (size() == capacity()) {
+            grow();
+        }
+        for (int i = size(); i > pos; i--) {
+            data[i] = data[i - 1];
+        }
+        data[pos] = e;
+        size++;
     }
+
 
     private void grow() {
         capacity *= 2;

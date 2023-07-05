@@ -2,6 +2,7 @@ package b05a3;
 
 import b05a2.Folge;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class FolgeMitRing<T> implements Folge<T> {
@@ -78,18 +79,33 @@ public class FolgeMitRing<T> implements Folge<T> {
         if (pos < 0 || pos > capacity() - 1 || pos > size()) {
             throw new IllegalStateException();
         }
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
 
         T removedElement = data[pos];
-        data[pos] = null;
+
+        for (int i = pos; i < size() - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        data[size() - 1] = null;
+        size--;
         return removedElement;
     }
 
     @Override
     public void insert(int pos, T e) {
-        if (pos >= 0 && pos <= size) {
-            data[pos] = e;
-        } else {
+        if (pos < 0 || pos > size) {
             throw new IllegalStateException();
         }
+
+        if (data[pos] != null) {
+            int index = (pointer == 0) ? size - 1 : size;
+            for (int i = index; i >= pos; i--) {
+                data[(i + 1) % capacity] = data[i % capacity];
+            }
+        }
+        data[pos] = e;
+        size++;
     }
 }

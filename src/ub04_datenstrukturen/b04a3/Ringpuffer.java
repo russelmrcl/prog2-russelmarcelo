@@ -1,5 +1,6 @@
 package b04a3;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Ringpuffer<T> {
@@ -98,10 +99,6 @@ public class Ringpuffer<T> {
 
     public T pointer() {
         return data[pointer];
-    }
-
-    private int pointerPos() {
-        return pointer;
     }
 
     public int capacity() {
