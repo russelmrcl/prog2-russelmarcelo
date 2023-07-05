@@ -98,6 +98,9 @@ public class Ringpuffer<T> {
     }
 
     public T pointer() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
         return data[pointer];
     }
 

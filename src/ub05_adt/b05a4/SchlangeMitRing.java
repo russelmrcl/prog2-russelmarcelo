@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 
 public class SchlangeMitRing<T> implements Schlange<T> {
 
-    Ringpuffer schlange;
+    private Ringpuffer schlange;
 
     public SchlangeMitRing(int capacity) {
         schlange = new Ringpuffer<>(capacity);
