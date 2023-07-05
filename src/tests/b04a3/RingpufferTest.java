@@ -145,7 +145,7 @@ class RingpufferTest {
         ringpuffer.addLast(4);
         assertEquals(4, ringpuffer.get(2));
         ringpuffer.removeLast();
-        assertEquals(1, ringpuffer.pointer());
+        assertEquals(2, ringpuffer.size());
     }
 
     @Test

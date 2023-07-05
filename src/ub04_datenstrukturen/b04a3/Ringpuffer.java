@@ -21,7 +21,7 @@ public class Ringpuffer<T> {
     }
 
     public T get(int pos) {
-        if (pos > capacity - 1 || pos < 0 || pos > size) {
+        if (pos > capacity - 1 || pos < 0 || pos > size() - 1) {
             throw new IllegalStateException();
         }
         return data[pos];
@@ -30,7 +30,7 @@ public class Ringpuffer<T> {
     public T set(int pos, T e) {
 
         T replacedELement;
-        if (pos > capacity - 1 || pos < 0 || pos > size) {
+        if (pos > capacity() - 1 || pos < 0 || pos > size() - 1) {
             throw new IllegalStateException();
         }
         replacedELement = data[pos];
@@ -39,13 +39,14 @@ public class Ringpuffer<T> {
     }
 
     public void addFirst(T e) {
-        if (size == capacity) {
+        if (size() == capacity()) {
             throw new IllegalStateException();
         }
         @SuppressWarnings("unchecked")
-        T[] tmp = (T[]) new Object[capacity];
-        for (int i = pointer; i <= capacity + pointer; i++) {
-            tmp[(i + 1) % capacity] = data[i % capacity];
+        T[] tmp = (T[]) new Object[capacity()];
+        for (int i = pointer; i < capacity() + pointer; i++) {
+            //move elements to the right & copy elements to tmp
+            tmp[(i + 1) % capacity()] = data[i % capacity()];
         }
         data = tmp;
         data[pointer] = e;
@@ -54,11 +55,11 @@ public class Ringpuffer<T> {
 
     public void addLast(T e) {
 
-        if (size == capacity) {
+        if (size() == capacity()) {
             throw new IllegalStateException();
         }
-        int index = (size + pointer) % capacity;
-        data[index] = e;
+        //elements are added behind pointer
+        data[(size() + pointer) % capacity()] = e;
         size++;
     }
 
@@ -70,7 +71,7 @@ public class Ringpuffer<T> {
         }
         T removedElement = data[pointer];
         data[pointer] = null;
-        pointer = (pointer + 1) % capacity;
+        pointer = (pointer + 1) % capacity();
         size--;
         return removedElement;
 
@@ -82,10 +83,9 @@ public class Ringpuffer<T> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        T removedElement = data[size - 1];
+        T removedElement = data[size() - 1];
+        data[size() - 1] = null;
         size--;
-        int index = (size + pointer) % capacity;
-        data[index] = null;
         return removedElement;
     }
 
@@ -110,5 +110,15 @@ public class Ringpuffer<T> {
 
     public boolean isEmpty() {
         return this.size() == 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Ringpuffer{" +
+                "data=" + Arrays.toString(data) +
+                ", pointer=" + pointer +
+                ", size=" + size +
+                ", capacity=" + capacity +
+                '}';
     }
 }

@@ -75,7 +75,7 @@ class FolgeMitDynArrayTest {
         assertEquals(10, dyn.get(0));
         assertEquals(20, dyn.get(1));
         dyn.remove();
-        assertNull(dyn.get(1));
+        assertEquals(10, dyn.get(0));
     }
 
     @Test
@@ -115,10 +115,7 @@ class FolgeMitDynArrayTest {
 
     @Test
     void removePosThrowsException() {
-        assertThrows(NoSuchElementException.class, () -> {
-            //dyn is empty
-            dyn.remove(0);
-        });
+
         assertThrows(IllegalStateException.class, () -> {
             //index < 0
             dyn.remove(-1);

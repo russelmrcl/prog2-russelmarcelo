@@ -2,7 +2,6 @@ package b05a3;
 
 import b05a2.Folge;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class FolgeMitRing<T> implements Folge<T> {
@@ -35,11 +34,11 @@ public class FolgeMitRing<T> implements Folge<T> {
 
     @Override
     public void insert(T i) throws IllegalStateException {
-        if (size == capacity) {
+        if (size() == capacity()) {
             throw new IllegalStateException();
         }
-        int index = (size + pointer) % capacity;
-        data[index] = i;
+        //elements are added behind pointer
+        data[(size() + pointer) % capacity()] = i;
         size++;
     }
 
@@ -50,14 +49,14 @@ public class FolgeMitRing<T> implements Folge<T> {
         }
         T removedElement = data[pointer];
         data[pointer] = null;
-        pointer = (pointer + 1) % capacity;
+        pointer = (pointer + 1) % capacity();
         size--;
         return removedElement;
     }
 
     @Override
     public T get(int pos) {
-        if (pos > capacity - 1 || pos < 0 || pos > size) {
+        if (pos > capacity() - 1 || pos < 0 || pos > size() - 1) {
             throw new IllegalStateException();
         }
         return data[pos];
@@ -66,7 +65,7 @@ public class FolgeMitRing<T> implements Folge<T> {
     @Override
     public T set(int pos, T e) {
         T replacedELement;
-        if (pos > capacity - 1 || pos < 0 || pos > size) {
+        if (pos > capacity() - 1 || pos < 0 || pos > size()) {
             throw new IllegalStateException();
         }
         replacedELement = data[pos];
@@ -95,14 +94,14 @@ public class FolgeMitRing<T> implements Folge<T> {
 
     @Override
     public void insert(int pos, T e) {
-        if (pos < 0 || pos > size) {
+        if (pos < 0 || pos > size()) {
             throw new IllegalStateException();
         }
 
         if (data[pos] != null) {
-            int index = (pointer == 0) ? size - 1 : size;
+            int index = (pointer == 0) ? size() - 1 : size();
             for (int i = index; i >= pos; i--) {
-                data[(i + 1) % capacity] = data[i % capacity];
+                data[(i + 1) % capacity()] = data[i % capacity()];
             }
         }
         data[pos] = e;

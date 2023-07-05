@@ -56,7 +56,7 @@ public class FolgeMitDynArray<T> implements Folge<T> {
 
     @Override
     public T get(int pos) {
-        if (pos < 0 || pos > capacity() - 1 || pos > size()) {
+        if (pos < 0 || pos > capacity() - 1 || pos > size() - 1) {
             throw new IllegalStateException();
         }
         return data[pos];
@@ -64,7 +64,7 @@ public class FolgeMitDynArray<T> implements Folge<T> {
 
     @Override
     public T set(int pos, T e) {
-        if (pos < 0 || pos > capacity() - 1 || pos > size()) {
+        if (pos < 0 || pos > capacity() - 1 || pos > size() - 1) {
             throw new IllegalStateException();
         }
         T replacedElement = data[pos];
@@ -75,7 +75,7 @@ public class FolgeMitDynArray<T> implements Folge<T> {
     @Override
     public T remove(int pos) {
 
-        if (pos < 0 || pos > capacity() - 1 || pos > size()) {
+        if (pos < 0 || pos > capacity() - 1 || pos > size() - 1) {
             throw new IllegalStateException();
         }
 
@@ -88,7 +88,7 @@ public class FolgeMitDynArray<T> implements Folge<T> {
         for (int i = pos; i < size() - 1; i++) {
             data[i] = data[i + 1];
         }
-        data[size()-1] = null;
+        data[size() - 1] = null;
         size--;
 
         if (size() * 4 == capacity()) {
@@ -119,7 +119,7 @@ public class FolgeMitDynArray<T> implements Folge<T> {
     private void grow() {
         capacity *= 2;
         @SuppressWarnings("unchecked")
-        T[] newData = (T[]) new Object[capacity];
+        T[] newData = (T[]) new Object[capacity()];
         for (int i = 0; i < size(); i++) {
             newData[i] = data[i];
         }
@@ -130,7 +130,7 @@ public class FolgeMitDynArray<T> implements Folge<T> {
 
         capacity /= 2;
         @SuppressWarnings("unchecked")
-        T[] newData = (T[]) new Object[capacity];
+        T[] newData = (T[]) new Object[capacity()];
         for (int i = 0; i < size(); i++) {
             newData[i] = data[i];
         }
