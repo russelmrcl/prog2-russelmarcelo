@@ -2,6 +2,7 @@ package b05a3;
 
 import b05a2.Folge;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class FolgeMitRing<T> implements Folge<T> {
@@ -75,7 +76,7 @@ public class FolgeMitRing<T> implements Folge<T> {
 
     @Override
     public T remove(int pos) {
-        if (pos < 0 || pos > capacity() - 1 || pos > size()) {
+        if (pos < 0 || pos > capacity() - 1 || pos > size() - 1) {
             throw new IllegalStateException();
         }
         if (isEmpty()) {
