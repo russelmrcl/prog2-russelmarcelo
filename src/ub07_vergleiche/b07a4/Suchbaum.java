@@ -1,28 +1,45 @@
-package b06a4;
+package b07a4;
 
 import b02a3.Schlange;
 import b03a2.SchlangeMitEVL;
 import b05a2.Folge;
 import b05a3.FolgeMitRing;
 
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
-public class IntSuchbaum {
+public class Suchbaum<T> {
 
     private TreeElement root;
+    private Comparator<T> comp;
 
-    public IntSuchbaum() {
+    public Suchbaum() {
         root = null;
+    }
+
+    public Suchbaum(Comparator<T> comp) {
+        root = null;
+        this.comp = comp;
     }
 
     private class TreeElement {
 
-        Integer data;
+        T data;
         TreeElement left;
         TreeElement right;
 
-        TreeElement(Integer data) {
+        TreeElement(T data) {
             this.data = data;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private int compare(T o1, T o2) {
+        if (comp != null) {
+            return comp.compare(o1, o2);
+        } else {
+            Comparable<T> naturalOrder = (Comparable<T>) o1;
+            return naturalOrder.compareTo(o2);
         }
     }
 
@@ -30,7 +47,7 @@ public class IntSuchbaum {
         return root == null;
     }
 
-    public void insert(Integer i) {
+    public void insert(T i) {
         if (isEmpty()) {
             root = new TreeElement(i);
         } else {
@@ -38,9 +55,9 @@ public class IntSuchbaum {
         }
     }
 
-    private void insert(TreeElement current, Integer data) {
+    private void insert(TreeElement current, T data) {
 
-        if (data < current.data) {
+        if (compare(data, current.data) < 0) {
             if (current.left == null) {
                 current.left = new TreeElement(data);
             } else {
@@ -48,7 +65,7 @@ public class IntSuchbaum {
             }
         }
 
-        if (data > current.data) {
+        if (compare(data, current.data) > 0) {
             if (current.right == null) {
                 current.right = new TreeElement(data);
             } else {
@@ -57,7 +74,7 @@ public class IntSuchbaum {
         }
     }
 
-    public TreeElement remove(Integer i) {
+    public TreeElement remove(T i) {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
@@ -67,12 +84,12 @@ public class IntSuchbaum {
         return remove(root, i);
     }
 
-    private TreeElement remove(TreeElement current, int data) {
+    private TreeElement remove(TreeElement current, T data) {
 
         //Going through the search tree
-        if (data < current.data) {
+        if (compare(data, current.data) < 0) {
             current.left = remove(current.left, data);
-        } else if (data > current.data) {
+        } else if (compare(data, current.data) > 0) {
             current.right = remove(current.right, data);
         } else {
             // 1st case: node without successor
@@ -103,13 +120,13 @@ public class IntSuchbaum {
         return current;
     }
 
-    public Folge<Integer> preorder() {
-        Folge<Integer> result = new FolgeMitRing<>(size());
+    public Folge<T> preorder() {
+        Folge<T> result = new FolgeMitRing<>(size());
         preorder(root, result);
         return result;
     }
 
-    private void preorder(TreeElement current, Folge<Integer> result) {
+    private void preorder(TreeElement current, Folge<T> result) {
 
         if (current == null) {
             return;
@@ -120,13 +137,13 @@ public class IntSuchbaum {
         preorder(current.right, result);
     }
 
-    public Folge<Integer> inorder() {
-        Folge<Integer> result = new FolgeMitRing<>(size());
+    public Folge<T> inorder() {
+        Folge<T> result = new FolgeMitRing<>(size());
         inorder(root, result);
         return result;
     }
 
-    private void inorder(TreeElement current, Folge<Integer> result) {
+    private void inorder(TreeElement current, Folge<T> result) {
 
         if (current == null) {
             return;
@@ -137,13 +154,13 @@ public class IntSuchbaum {
         inorder(current.right, result);
     }
 
-    public Folge<Integer> postorder() {
-        Folge<Integer> result = new FolgeMitRing<>(size());
+    public Folge<T> postorder() {
+        Folge<T> result = new FolgeMitRing<>(size());
         postorder(root, result);
         return result;
     }
 
-    private void postorder(TreeElement current, Folge<Integer> result) {
+    private void postorder(TreeElement current, Folge<T> result) {
 
         if (current == null) {
             return;
@@ -154,8 +171,8 @@ public class IntSuchbaum {
         result.insert(current.data);
     }
 
-    public Folge<Integer> breitensuche() {
-        Folge<Integer> result = new FolgeMitRing<>(size());
+    public Folge<T> breitensuche() {
+        Folge<T> result = new FolgeMitRing<>(size());
         Schlange<TreeElement> queue = new SchlangeMitEVL<>();
 
         if (root != null) {
@@ -177,7 +194,7 @@ public class IntSuchbaum {
     }
 
 
-    public boolean contains(Integer i) {
+    public boolean contains(T i) {
         if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
@@ -185,7 +202,7 @@ public class IntSuchbaum {
         }
     }
 
-    private boolean contains(TreeElement current, Integer data) {
+    private boolean contains(TreeElement current, T data) {
 
         if (current == null) {
             return false;
@@ -193,7 +210,7 @@ public class IntSuchbaum {
 
         if (current.data == data) {
             return true;
-        } else if (data < current.data) {
+        } else if (compare(data, current.data) < 0) {
             return contains(current.left, data);
         } else {
             return contains(current.right, data);

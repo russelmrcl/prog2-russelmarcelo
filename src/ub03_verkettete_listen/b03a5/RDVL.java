@@ -9,9 +9,9 @@ public class RDVL<T> {
 
     private class ListElement {
 
-        private T data;
-        private ListElement next;
-        private ListElement prev;
+        T data;
+        ListElement next;
+        ListElement prev;
 
         ListElement(T data) {
             this.data = data;

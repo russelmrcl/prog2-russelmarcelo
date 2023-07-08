@@ -108,4 +108,9 @@ public class FolgeMitRing<T> implements Folge<T> {
         data[pos] = e;
         size++;
     }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(data);
+    }
 }

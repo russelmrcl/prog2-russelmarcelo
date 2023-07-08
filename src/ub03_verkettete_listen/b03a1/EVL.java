@@ -9,8 +9,8 @@ public class EVL<T> {
 
     private class ListElement {
 
-        private T data;
-        private ListElement next = null;
+        T data;
+        ListElement next = null;
 
         ListElement(T data) {
             this.data = data;
