@@ -13,6 +13,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/ub05_adt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ub06_baeume" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ub07_vergleiche" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ub08_iterationen" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

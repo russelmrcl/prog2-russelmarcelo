@@ -38,6 +38,7 @@ public class Suchbaum<T> {
         if (comp != null) {
             return comp.compare(o1, o2);
         } else {
+            //T Object must be implements the Comparable Interface
             Comparable<T> naturalOrder = (Comparable<T>) o1;
             return naturalOrder.compareTo(o2);
         }
