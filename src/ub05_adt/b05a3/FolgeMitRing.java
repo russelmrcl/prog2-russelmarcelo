@@ -59,11 +59,12 @@ public class FolgeMitRing<T> implements Folge<T> {
     @Override
     public T remove(int pos) {
 
-        if (pos < 0 || pos > capacity() - 1 || pos > size() - 1) {
-            throw new IllegalStateException();
-        }
         if (isEmpty()) {
             throw new NoSuchElementException();
+        }
+
+        if (pos < 0 || pos > capacity() - 1 || pos > size() - 1) {
+            throw new IllegalStateException();
         }
 
         T removedElement = ringpuffer.get(pos);
@@ -87,9 +88,8 @@ public class FolgeMitRing<T> implements Folge<T> {
         }
         if (currentPointer == capacity() - 1) {
             ringpuffer.addLast(get(1));
-        } else {
-            ringpuffer.addLast(get(0));
         }
+        ringpuffer.addLast(get(0));
         if (ringpuffer.get(pos) != null) {
             int index = (ringpuffer.getPointer() == 0) ? size() - 2 : (currentPointer != capacity() - 1) ? size() - 1 : size();
             for (int i = index; i >= pos; i--) {
@@ -102,8 +102,6 @@ public class FolgeMitRing<T> implements Folge<T> {
 
     @Override
     public String toString() {
-        return "FolgeMitRing{" +
-                "ringpuffer=" + ringpuffer +
-                '}';
+        return ringpuffer.toString();
     }
 }

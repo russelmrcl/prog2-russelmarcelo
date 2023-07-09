@@ -122,11 +122,6 @@ public class Ringpuffer<T> {
 
     @Override
     public String toString() {
-        return "Ringpuffer{" +
-                "data=" + Arrays.toString(data) +
-                ", pointer=" + pointer +
-                ", size=" + size +
-                ", capacity=" + capacity +
-                '}';
+        return Arrays.toString(data);
     }
 }

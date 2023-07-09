@@ -2,138 +2,81 @@ package b08a4;
 
 import b05a2.Folge;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class FolgeMitDynArray<T> implements Folge<T> {
+public class FolgeMitDynArray<T> implements Folge<T>, Iterable<T> {
 
-    private T data[];
-    private int size = 0;
-    private int capacity = 1;
+    private DynArray<T> dynArray;
 
-    @SuppressWarnings("unchecked")
     public FolgeMitDynArray() {
-        data = (T[]) new Object[capacity];
+        dynArray = new DynArray<>();
     }
-
 
     @Override
     public boolean isEmpty() {
-        return size() == 0;
+        return dynArray.isEmpty();
     }
 
     @Override
     public int size() {
-        return this.size;
+        return dynArray.size();
     }
 
     @Override
     public int capacity() {
-        return this.capacity;
+        return dynArray.capacity();
     }
 
     @Override
     public void insert(T i) throws IllegalStateException {
-        if (size() == capacity()) {
-            grow();
-        }
-        data[size++] = i;
+        dynArray.addLast(i);
     }
 
     @Override
     public T remove() throws NoSuchElementException {
-        if (isEmpty()) {
-            throw new NoSuchElementException();
-        }
-
-        T removedElement = data[size() - 1];
-        data[size() - 1] = null;
-        size--;
-        if (size() * 4 == capacity()) {
-            shrink();
-        }
-        return removedElement;
+        return dynArray.removeLast();
     }
 
     @Override
     public T get(int pos) {
-        if (pos < 0 || pos > capacity() - 1 || pos > size() - 1) {
-            throw new IllegalStateException();
-        }
-        return data[pos];
+        return dynArray.get(pos);
     }
 
     @Override
     public T set(int pos, T e) {
-        if (pos < 0 || pos > capacity() - 1 || pos > size() - 1) {
-            throw new IllegalStateException();
-        }
-        T replacedElement = data[pos];
-        data[pos] = e;
-        return replacedElement;
+        return dynArray.set(pos, e);
     }
 
     @Override
     public T remove(int pos) {
 
-        if (pos < 0 || pos > capacity() - 1 || pos > size() - 1) {
+        if (pos < 0 || pos > capacity() - 1 || pos > size()) {
             throw new IllegalStateException();
         }
-
-        if (isEmpty()) {
-            throw new NoSuchElementException();
-        }
-
-        T removedElement = data[pos];
-
+        T removedElement = dynArray.get(pos);
         for (int i = pos; i < size() - 1; i++) {
-            data[i] = data[i + 1];
+            dynArray.set(i, dynArray.get(i + 1));
         }
-        data[size() - 1] = null;
-        size--;
-
-        if (size() * 4 == capacity()) {
-            shrink();
-        }
-
+        dynArray.removeLast();
         return removedElement;
     }
 
-
     @Override
     public void insert(int pos, T e) {
-        if (0 > pos || pos > capacity()) {
+
+        if (pos < 0 || pos > capacity() - 1 || pos > size()) {
             throw new IllegalStateException();
         }
-
-        if (size() == capacity()) {
-            grow();
+        dynArray.addLast(dynArray.set(pos, e));
+        for (int i = size() - 1; i > pos; i--) {
+            dynArray.set(i, dynArray.get(i - 1));
         }
-        for (int i = size(); i > pos; i--) {
-            data[i] = data[i - 1];
-        }
-        data[pos] = e;
-        size++;
+        dynArray.set(pos, e);
     }
-
-
-    private void grow() {
-        capacity *= 2;
-        @SuppressWarnings("unchecked")
-        T[] newData = (T[]) new Object[capacity()];
-        for (int i = 0; i < size(); i++) {
-            newData[i] = data[i];
-        }
-        data = newData;
-    }
-
-    private void shrink() {
-
-        capacity /= 2;
-        @SuppressWarnings("unchecked")
-        T[] newData = (T[]) new Object[capacity()];
-        for (int i = 0; i < size(); i++) {
-            newData[i] = data[i];
-        }
-        data = newData;
+    
+    @Override
+    public Iterator<T> iterator() {
+        return dynArray.iterator();
     }
 }
