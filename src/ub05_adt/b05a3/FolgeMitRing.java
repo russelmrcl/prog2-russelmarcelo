@@ -1,81 +1,64 @@
 package b05a3;
 
+import b04a3.Ringpuffer;
 import b05a2.Folge;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class FolgeMitRing<T> implements Folge<T> {
 
-    private T[] data;
-    private int pointer = 0;
-    private int size = 0;
-    private int capacity;
+    private Ringpuffer<T> ringpuffer;
+    private boolean removePosUsed = false;
 
-    @SuppressWarnings("unchecked")
     public FolgeMitRing(int capacity) {
-        this.capacity = capacity;
-        data = (T[]) new Object[capacity];
+        ringpuffer = new Ringpuffer<>(capacity);
     }
+
 
     @Override
     public boolean isEmpty() {
-        return size() == 0;
+        return ringpuffer.isEmpty();
     }
 
     @Override
     public int size() {
-        return this.size;
+        return ringpuffer.size();
     }
 
     @Override
     public int capacity() {
-        return this.capacity;
+        return ringpuffer.capacity();
     }
 
     @Override
     public void insert(T i) throws IllegalStateException {
-        if (size() == capacity()) {
-            throw new IllegalStateException();
+        int currentPointer = ringpuffer.getPointer();
+        if (removePosUsed) {
+            ringpuffer.setPointer(0);
         }
-        //elements are added behind pointer
-        data[(size() + pointer) % capacity()] = i;
-        size++;
+        ringpuffer.addLast(i);
+        ringpuffer.setPointer(currentPointer);
     }
 
     @Override
     public T remove() throws NoSuchElementException {
-        if (isEmpty()) {
-            throw new NoSuchElementException();
-        }
-        T removedElement = data[pointer];
-        data[pointer] = null;
-        pointer = (pointer + 1) % capacity();
-        size--;
-        return removedElement;
+        removePosUsed = false;
+        return ringpuffer.removeFirst();
     }
 
     @Override
     public T get(int pos) {
-        if (pos > capacity() - 1 || pos < 0 || pos > size() - 1) {
-            throw new IllegalStateException();
-        }
-        return data[pos];
+        return ringpuffer.get(pos);
     }
 
     @Override
     public T set(int pos, T e) {
-        T replacedELement;
-        if (pos > capacity() - 1 || pos < 0 || pos > size()) {
-            throw new IllegalStateException();
-        }
-        replacedELement = data[pos];
-        data[pos] = e;
-        return replacedELement;
+        return ringpuffer.set(pos, e);
     }
 
     @Override
     public T remove(int pos) {
+
         if (pos < 0 || pos > capacity() - 1 || pos > size() - 1) {
             throw new IllegalStateException();
         }
@@ -83,34 +66,44 @@ public class FolgeMitRing<T> implements Folge<T> {
             throw new NoSuchElementException();
         }
 
-        T removedElement = data[pos];
-
+        T removedElement = ringpuffer.get(pos);
         for (int i = pos; i < size() - 1; i++) {
-            data[i] = data[i + 1];
+            ringpuffer.set(i, get(i + 1));
         }
-        data[size() - 1] = null;
-        size--;
+        removePosUsed = true;
+        ringpuffer.removeLast();
         return removedElement;
     }
 
     @Override
     public void insert(int pos, T e) {
+
         if (pos < 0 || pos > size()) {
             throw new IllegalStateException();
         }
-
-        if (data[pos] != null) {
-            int index = (pointer == 0) ? size() - 1 : size();
+        int currentPointer = ringpuffer.getPointer();
+        if (removePosUsed) {
+            ringpuffer.setPointer(0);
+        }
+        if (currentPointer == capacity() - 1) {
+            ringpuffer.addLast(get(1));
+        } else {
+            ringpuffer.addLast(get(0));
+        }
+        if (ringpuffer.get(pos) != null) {
+            int index = (ringpuffer.getPointer() == 0) ? size() - 2 : (currentPointer != capacity() - 1) ? size() - 1 : size();
             for (int i = index; i >= pos; i--) {
-                data[(i + 1) % capacity()] = data[i % capacity()];
+                ringpuffer.set((i + 1) % capacity(), get(i % capacity()));
             }
         }
-        data[pos] = e;
-        size++;
+        ringpuffer.set(pos, e);
+        ringpuffer.setPointer(currentPointer);
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(data);
+        return "FolgeMitRing{" +
+                "ringpuffer=" + ringpuffer +
+                '}';
     }
 }

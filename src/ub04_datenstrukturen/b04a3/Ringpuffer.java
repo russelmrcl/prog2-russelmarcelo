@@ -21,7 +21,7 @@ public class Ringpuffer<T> {
     }
 
     public T get(int pos) {
-        if (pos > capacity - 1 || pos < 0 || pos > size() - 1) {
+        if (pos > capacity - 1 || pos < 0 || pos > size()) {
             throw new IllegalStateException();
         }
         return data[pos];
@@ -30,7 +30,7 @@ public class Ringpuffer<T> {
     public T set(int pos, T e) {
 
         T replacedELement;
-        if (pos > capacity() - 1 || pos < 0 || pos > size() - 1) {
+        if (pos > capacity() - 1 || pos < 0 || pos > size()) {
             throw new IllegalStateException();
         }
         replacedELement = data[pos];
@@ -108,7 +108,25 @@ public class Ringpuffer<T> {
         return this.capacity;
     }
 
+    public int getPointer() {
+        return pointer;
+    }
+
+    public void setPointer(int newPointer) {
+        this.pointer = newPointer;
+    }
+
     public boolean isEmpty() {
         return this.size() == 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Ringpuffer{" +
+                "data=" + Arrays.toString(data) +
+                ", pointer=" + pointer +
+                ", size=" + size +
+                ", capacity=" + capacity +
+                '}';
     }
 }

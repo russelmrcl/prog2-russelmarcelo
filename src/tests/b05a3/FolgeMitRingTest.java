@@ -114,6 +114,7 @@ class FolgeMitRingTest {
             //ring is empty
             ring.remove(0);
         });
+        ring.insert(1);
         assertThrows(IllegalStateException.class, () -> {
             //index < 0
             ring.remove(-1);

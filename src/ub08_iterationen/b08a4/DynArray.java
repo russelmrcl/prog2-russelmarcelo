@@ -1,8 +1,9 @@
-package b04a2;
+package b08a4;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DynArray<T> {
+public class DynArray<T> implements Iterable<T> {
 
     private T[] data;
     private int size = 0;
@@ -94,7 +95,6 @@ public class DynArray<T> {
         return removedElement;
     }
 
-
     private void grow() {
 
         capacity *= 2;
@@ -119,6 +119,31 @@ public class DynArray<T> {
 
     public boolean isEmpty() {
         return size() == 0;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new DynArrayIterator();
+    }
+
+    private class DynArrayIterator implements Iterator<T> {
+
+        int index = 0;
+
+        @Override
+        public boolean hasNext() {
+            return index < size();
+        }
+
+        @Override
+        public T next() {
+
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            return data[index++];
+        }
     }
 }
 
