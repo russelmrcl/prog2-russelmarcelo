@@ -93,7 +93,7 @@ public class FolgeMitRing<T> implements Folge<T> {
         } else {
             ringpuffer.addLast(get(0));
         }
-        if (ringpuffer.get(pos) != null && currentPointer + 1 != size()) {
+        if (ringpuffer.get(pos) != null && currentPointer + 1 != size() || removePosUsed) {
             int index = (ringpuffer.getPointer() == 0) ? size() - 2 : (currentPointer != capacity() - 1) ? size() - 1 : size();
             for (int i = index; i >= pos; i--) {
                 ringpuffer.set((i + 1) % capacity(), get(i % capacity()));
@@ -102,6 +102,7 @@ public class FolgeMitRing<T> implements Folge<T> {
         ringpuffer.set(pos, e);
         ringpuffer.setPointer(currentPointer);
     }
+
 
     @Override
     public String toString() {
