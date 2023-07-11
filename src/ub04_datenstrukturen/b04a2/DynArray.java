@@ -1,5 +1,6 @@
 package b04a2;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class DynArray<T> {
@@ -119,6 +120,15 @@ public class DynArray<T> {
 
     public boolean isEmpty() {
         return size() == 0;
+    }
+
+    @Override
+    public String toString() {
+        return "DynArray{" +
+                "data=" + Arrays.toString(data) +
+                ", size=" + size +
+                ", capacity=" + capacity +
+                '}';
     }
 }
 
