@@ -4,7 +4,6 @@ import b05a2.Folge;
 import b08a4.FolgeMitDynArray;
 import b08a4.Puffer;
 
-import java.util.Comparator;
 import java.util.Iterator;
 
 public abstract class GenericUtil {
@@ -31,5 +30,5 @@ public abstract class GenericUtil {
         }
         return result;
     }
-    
+
 }
