@@ -4,6 +4,7 @@ import b02a3.Schlange;
 import b03a2.SchlangeMitEVL;
 import b05a2.Folge;
 import b05a3.FolgeMitRing;
+import b07a2.Person;
 
 import java.util.Comparator;
 import java.util.NoSuchElementException;

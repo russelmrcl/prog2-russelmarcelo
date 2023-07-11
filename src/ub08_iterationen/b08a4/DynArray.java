@@ -1,5 +1,6 @@
 package b08a4;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -144,6 +145,11 @@ public class DynArray<T> implements Iterable<T> {
 
             return data[index++];
         }
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(data);
     }
 }
 

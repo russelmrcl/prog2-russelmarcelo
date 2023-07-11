@@ -28,8 +28,8 @@ public abstract class GenericUtil {
         return new Random().nextBoolean() ? o1 : o2;
     }
 
-    public static <T> void printAll(Iterable<T> obj) {
-        for (T value : obj) {
+    public static <T> void printAll(Iterable<T> dataStructure) {
+        for (T value : dataStructure) {
             System.out.println(value);
         }
     }
@@ -49,7 +49,6 @@ public abstract class GenericUtil {
     public static <T extends Comparable<T>> Folge<T> getMinima(Puffer<T> puffer1, Puffer<T> puffer2) {
 
         Folge<T> result = new FolgeMitDynArray<>();
-
         if (puffer1.isEmpty() && puffer2.isEmpty()) {
             return result;
         }

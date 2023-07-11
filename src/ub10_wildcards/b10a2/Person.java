@@ -1,6 +1,6 @@
-package b07a2;
+package b10a2;
 
-public abstract class Person {
+public class Person implements Comparable<Person> {
 
     private String name;
     private String vorname;
@@ -33,4 +33,8 @@ public abstract class Person {
         return this.getName() + ", " + this.getVorname();
     }
 
+    @Override
+    public int compareTo(Person o) {
+        return this.getName().compareTo(o.getName());
+    }
 }

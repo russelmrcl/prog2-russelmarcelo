@@ -79,4 +79,9 @@ public class FolgeMitDynArray<T> implements Folge<T>, Iterable<T> {
     public Iterator<T> iterator() {
         return dynArray.iterator();
     }
+
+    @Override
+    public String toString() {
+        return dynArray.toString();
+    }
 }

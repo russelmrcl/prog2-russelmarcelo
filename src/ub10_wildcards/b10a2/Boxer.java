@@ -1,6 +1,6 @@
-package b07a2;
+package b10a2;
 
-public class Boxer extends Person implements Comparable<Boxer>{
+public class Boxer extends Person {
 
     private int kg;
 
@@ -28,15 +28,4 @@ public class Boxer extends Person implements Comparable<Boxer>{
         return super.toString() + ", " + getKg();
     }
 
-    @Override
-    public int compareTo(Boxer o) {
-
-        int gewichtVergleich = Integer.compare(this.getKg(), o.getKg());
-        int nameVergleich = this.getName().compareTo(o.getName());
-        int vornameVergleich = this.getVorname().compareTo(o.getVorname());
-
-        return (gewichtVergleich != 0) ? gewichtVergleich :
-                (nameVergleich != 0) ?
-                nameVergleich : vornameVergleich;
-    }
 }
